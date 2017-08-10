@@ -17,23 +17,28 @@ public class Controller extends Observable{
 	
 	private ArrayList<Player> players = new ArrayList<Player>();
 	public static GameStrategyYahtzee yahtzee = new GameStrategyYahtzee();
-	private ViewFrame view;
+	private ArrayList<ViewFrame> views;
 	
-	public Controller(ViewFrame view, ArrayList<Player> p) {
-		this.view = view;
+	public Controller(ArrayList<ViewFrame> views, ArrayList<Player> p) {
+		this.views = views;
 		this.players = p;
 		
-		view.getRollButton().addActionListener( new ActionListener()
-		{
-		    public void actionPerformed(ActionEvent e)
-		    {
-		      for (YahtzeeDice d: yahtzee.getDices()){
-		    	  d.roll();
-		      }
-		      setChanged();
-		      notifyObservers(yahtzee);
-		    }
-		});
+		
+		//Voegt voor elke ViewFrame een actionlistener toe aan de "start" knop.
+		for (ViewFrame v: views){
+			v.getRollButton().addActionListener( new ActionListener()
+			{
+			    public void actionPerformed(ActionEvent e)
+			    {
+			      for (YahtzeeDice d: yahtzee.getDices()){
+			    	  d.roll();
+			      }
+			      setChanged();
+			      notifyObservers(yahtzee);
+			    }
+			});
+		}
+		
 	}
 	
 	public void addPlayer(Player p){

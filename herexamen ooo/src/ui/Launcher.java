@@ -14,6 +14,7 @@ import view.ViewFrame;
 
 public class Launcher {
 	private static ArrayList<Player> players = new ArrayList<Player>();
+	private static ArrayList<ViewFrame> viewFrames = new ArrayList<ViewFrame>();
 
 	public static void main(String[] args) {
 //		ViewFrame frame = new ViewFrame();
@@ -37,12 +38,17 @@ public class Launcher {
 			}
 		}
 		
-		ViewFrame frame = new ViewFrame();
-		frame.createViewFrame();
-	    frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-	    frame.getAll().setVisible(true);
+		for (Player p: players){
+			ViewFrame frame = new ViewFrame();
+			frame.createViewFrame();
+		    frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		    frame.getAll().setVisible(true);
+		    viewFrames.add(frame);
+		}
+		
+		
 	    
-	    Controller c = new Controller(frame, players);
+	    Controller c = new Controller(viewFrames, players);
 	}
 
 }
